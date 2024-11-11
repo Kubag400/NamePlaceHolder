@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "X6c7WfyaAl4=",
+  "dgSpecHash": "g7ITWojM7O0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kubag\\source\\repos\\NamePlaceHolder\\Server\\ServerAPI\\ServerAPI\\ServerAPI.csproj",
+  "projectFilePath": "D:\\Projekty\\NamePlaceHolder\\ServerAPI\\ServerAPI\\ServerAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kubag\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\Kubag\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

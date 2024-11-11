@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kubag\\source\\repos\\NamePlaceHolder\\Server\\ServerAPI\\ServerAPI\\ServerAPI.csproj": {}
+    "D:\\Projekty\\NamePlaceHolder\\ServerAPI\\ServerAPI\\ServerAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kubag\\source\\repos\\NamePlaceHolder\\Server\\ServerAPI\\ServerAPI\\ServerAPI.csproj": {
+    "D:\\Projekty\\NamePlaceHolder\\ServerAPI\\ServerAPI\\ServerAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kubag\\source\\repos\\NamePlaceHolder\\Server\\ServerAPI\\ServerAPI\\ServerAPI.csproj",
+        "projectUniqueName": "D:\\Projekty\\NamePlaceHolder\\ServerAPI\\ServerAPI\\ServerAPI.csproj",
         "projectName": "ServerAPI",
-        "projectPath": "C:\\Users\\Kubag\\source\\repos\\NamePlaceHolder\\Server\\ServerAPI\\ServerAPI\\ServerAPI.csproj",
+        "projectPath": "D:\\Projekty\\NamePlaceHolder\\ServerAPI\\ServerAPI\\ServerAPI.csproj",
         "packagesPath": "C:\\Users\\Kubag\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kubag\\source\\repos\\NamePlaceHolder\\Server\\ServerAPI\\ServerAPI\\obj\\",
+        "outputPath": "D:\\Projekty\\NamePlaceHolder\\ServerAPI\\ServerAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Kubag\\AppData\\Roaming\\NuGet\\NuGet.Config",
