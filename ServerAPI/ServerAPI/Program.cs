@@ -47,7 +47,6 @@ if (app.Environment.IsDevelopment())
 app.MapIdentityApi<AppUser>();
 
 app.UseAuthorization();
-app.UseAuthentication();
 
 app.MapControllers();
 app.UseCors("AllowAllPolicy");
