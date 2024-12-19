@@ -1,8 +1,18 @@
 import { useState } from "react";
+import usePasswordChecker from "../hooks/passwordChecker.jsx";
 
-function resetPassword() {
+function ResetPassword() {
   const [currentStep, setCurrentStep] = useState(1);
   const [code, setCode] = useState(new Array(6).fill(""));
+
+  const {
+    password,
+    repeatPassword,
+    passwordMatchError,
+    handlePasswordChange,
+    handleRepeatPasswordChange,
+    renderPasswordStrengthIndicator,
+  } = usePasswordChecker();
 
   const handleChange = (element, index) => {
     if (element.value.length > 1) return;
@@ -27,10 +37,10 @@ function resetPassword() {
         </a>
 
         <div className="w-full rounded-lg shadow-md bg-gray-800/70 border border-gray-700 p-8 space-y-4">
-          <ol className="flex justify-center items-center w-full gap-12 text-sm font-medium text-center text-gray-500 sm:text-base">
+          <ol className="flex justify-center items-center w-full gap-4 sm:gap-8 lg:gap-12 text-sm font-medium text-center text-gray-500 sm:text-base relative">
             <li
               className={`flex flex-col items-center justify-center sm:w-auto cursor-pointer ${
-                currentStep >= 1 ? "text-indigo-600 " : "text-gray-400"
+                currentStep >= 1 ? "text-indigo-600" : "text-gray-400"
               }`}
               onClick={() => setCurrentStep(1)}
             >
@@ -46,9 +56,15 @@ function resetPassword() {
               <span className="mt-2 hidden sm:inline-flex">Email</span>
             </li>
 
+            <div
+              className={`h-0.5 w-8 sm:w-16 lg:w-24 ${
+                currentStep >= 2 ? "bg-indigo-600" : "bg-gray-500"
+              }`}
+            />
+
             <li
               className={`flex flex-col items-center justify-center sm:w-auto cursor-pointer ${
-                currentStep >= 2 ? "text-indigo-600 " : "text-gray-400"
+                currentStep >= 2 ? "text-indigo-600" : "text-gray-400"
               }`}
               onClick={() => setCurrentStep(2)}
             >
@@ -56,7 +72,7 @@ function resetPassword() {
                 className={`flex items-center justify-center w-8 h-8 rounded-full border-2 ${
                   currentStep >= 2
                     ? "border-indigo-600 bg-indigo-700 text-white"
-                    : "border-gray-500  bg-transparent text-gray-500"
+                    : "border-gray-500 bg-transparent text-gray-500"
                 }`}
               >
                 <span className="text-sm">2</span>
@@ -64,9 +80,15 @@ function resetPassword() {
               <span className="mt-2 hidden sm:inline-flex">Verification</span>
             </li>
 
+            <div
+              className={`h-0.5 w-8 sm:w-16 lg:w-24 ${
+                currentStep >= 3 ? "bg-indigo-600" : "bg-gray-500"
+              }`}
+            />
+
             <li
               className={`flex flex-col items-center justify-center sm:w-auto cursor-pointer ${
-                currentStep >= 3 ? "text-indigo-600 " : "text-gray-400"
+                currentStep >= 3 ? "text-indigo-600" : "text-gray-400"
               }`}
               onClick={() => setCurrentStep(3)}
             >
@@ -74,7 +96,7 @@ function resetPassword() {
                 className={`flex items-center justify-center w-8 h-8 rounded-full border-2 ${
                   currentStep >= 3
                     ? "border-indigo-600 bg-indigo-700 text-white"
-                    : "border-gray-500  bg-transparent text-gray-500"
+                    : "border-gray-500 bg-transparent text-gray-500"
                 }`}
               >
                 <span className="text-sm">3</span>
@@ -110,7 +132,7 @@ function resetPassword() {
                   />
                 </div>
                 <button
-                  type="button"
+                  type="submit"
                   onClick={() => setCurrentStep(2)}
                   className="w-full rounded-lg px-5 py-2.5 text-center text-white font-bold focus:outline-none focus:ring-4 bg-indigo-700 hover:bg-indigo-800 focus:ring-indigo-800 transition-transform transform hover:scale-105"
                 >
@@ -140,12 +162,13 @@ function resetPassword() {
                       onChange={(e) => handleChange(e.target, index)}
                       className="w-14 h-14 text-lg text-center uppercase font-bold text-white input-field"
                       maxLength="1"
+                      required
                     />
                   ))}
                 </div>
 
                 <button
-                  type="button"
+                  type="submit"
                   onClick={() => setCurrentStep(3)}
                   className="w-full rounded-lg px-5 py-2.5 text-center text-white font-bold focus:outline-none focus:ring-4 bg-indigo-700 hover:bg-indigo-800 focus:ring-indigo-800 transition-transform transform hover:scale-105"
                 >
@@ -175,22 +198,52 @@ function resetPassword() {
                 Enter a new password below to reset your account password.
               </p>
               <form className="space-y-6" action="#">
-                <div className="transition duration-200 ease-in-out">
+                <div>
                   <label
                     htmlFor="password"
                     className="block mb-2 text-sm font-medium text-gray-300"
                   >
-                    New Password
+                    Password
                   </label>
                   <input
                     type="password"
                     name="password"
                     id="password"
+                    placeholder="••••••••"
                     className="input-field"
-                    placeholder="New password"
+                    value={password}
+                    onChange={handlePasswordChange}
                     required
                   />
                 </div>
+
+                <div>
+                  <label
+                    htmlFor="repeat-password"
+                    className="block mb-2 text-sm font-medium text-gray-300"
+                  >
+                    Repeat password
+                  </label>
+                  <input
+                    type="password"
+                    name="repeat-password"
+                    id="repeat-password"
+                    placeholder="••••••••"
+                    className="input-field"
+                    value={repeatPassword}
+                    onChange={handleRepeatPasswordChange}
+                    required
+                  />
+                  {passwordMatchError && (
+                    <p className="text-red-500 text-sm mt-2">
+                      Passwords do not match.
+                    </p>
+                  )}
+                </div>
+
+                {/* Password Check Container */}
+                {renderPasswordStrengthIndicator()}
+
                 <button
                   type="submit"
                   className="w-full rounded-lg px-5 py-2.5 text-center text-white font-bold focus:outline-none focus:ring-4 bg-indigo-700 hover:bg-indigo-800 focus:ring-indigo-800 transition-transform transform hover:scale-105"
@@ -214,4 +267,4 @@ function resetPassword() {
   );
 }
 
-export default resetPassword;
+export default ResetPassword;

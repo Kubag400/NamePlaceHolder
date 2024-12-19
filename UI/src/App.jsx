@@ -7,8 +7,7 @@ import {
 import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
 import ResetPassword from "./components/resetPassword.jsx";
-// import Main from "./components/Main";
-
+import Main from "./components/Main.jsx";
 function App() {
   return (
     <Router>
@@ -21,8 +20,7 @@ function App() {
 
         <Route path="/resetPassword" element={<ResetPassword />} />
 
-        {/* Route to the Main component */}
-        {/* <Route path="/main" element={<Main />} /> */}
+        <Route path="/main" element={<Main />} />
       </Routes>
     </Router>
   );

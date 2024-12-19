@@ -1,74 +1,17 @@
-import React, { useState } from "react";
+import usePasswordChecker from "../hooks/passwordChecker.jsx";
 
 function Register() {
-  const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
-  const [strength, setStrength] = useState("");
-  const [passwordMatchError, setPasswordMatchError] = useState(false);
-
-  const checkPasswordStrength = (password) => {
-    let score = 0;
-
-    // Length check (at least 10 characters)
-    if (password.length >= 10) score++;
-
-    // Uppercase letter check
-    if (/[A-Z]/.test(password)) score++;
-
-    // Lowercase letter check
-    if (/[a-z]/.test(password)) score++;
-
-    // Number check
-    if (/\d/.test(password)) score++;
-
-    // Special character check
-    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) score++;
-
-    // Common patterns check
-    if (/password|1234|qwerty|admin/.test(password)) score = Math.min(score, 1); // Penalize common patterns
-
-    if (score <= 1) return "Weak";
-    if (score === 2) return "Fair";
-    if (score === 3) return "Good";
-    if (score === 4) return "Strong";
-    if (score === 5) return "Very Strong";
-    return "Very Weak";
-  };
-
-  const handlePasswordChange = (e) => {
-    const newPassword = e.target.value;
-    setPassword(newPassword);
-    setStrength(checkPasswordStrength(newPassword));
-  };
-
-  const handleRepeatPasswordChange = (e) => {
-    const newRepeatPassword = e.target.value;
-    setRepeatPassword(newRepeatPassword);
-
-    if (newRepeatPassword !== password) {
-      setPasswordMatchError(true);
-    } else {
-      setPasswordMatchError(false);
-    }
-  };
-
-  const getStrengthColorContainer = () => {
-    if (strength === "Weak") return "bg-red-500";
-    if (strength === "Fair") return "bg-orange-500";
-    if (strength === "Good") return "bg-yellow-500";
-    if (strength === "Strong") return "bg-green-500";
-    if (strength === "Very Strong") return "bg-indigo-500";
-    return "bg-gray-300";
-  };
-
-  const getStrengthColorText = () => {
-    if (strength === "Weak") return "text-red-500";
-    if (strength === "Fair") return "text-orange-500";
-    if (strength === "Good") return "text-yellow-500";
-    if (strength === "Strong") return "text-green-500";
-    if (strength === "Very Strong") return "text-indigo-500";
-    return "text-gray-300";
-  };
+  const {
+    password,
+    repeatPassword,
+    strength,
+    passwordMatchError,
+    handlePasswordChange,
+    handleRepeatPasswordChange,
+    getPasswordStrengthColorContainer,
+    getPasswordStrengthColorText,
+    renderPasswordStrengthIndicator,
+  } = usePasswordChecker();
 
   return (
     <section className="bg-gradient-to-br from-gray-800 via-gray-900 to-black min-h-screen flex items-center justify-center">
@@ -78,7 +21,7 @@ function Register() {
           className="flex items-center mb-8 text-3xl font-extrabold text-white"
         >
           <p className="w-10 h-10 mr-3 animate-bounce">🚀</p>
-          GoTogheter
+          GoTogether
         </a>
 
         <div className="w-full rounded-lg shadow-md bg-gray-800/70 border border-gray-700 p-8 space-y-6">
@@ -87,7 +30,7 @@ function Register() {
           </h1>
 
           <form className="space-y-6" action="#">
-            <div className="transition duration-200 ease-in-out">
+            <div>
               <label
                 htmlFor="email"
                 className="block mb-2 text-sm font-medium text-gray-300"
@@ -104,7 +47,7 @@ function Register() {
               />
             </div>
 
-            <div className="transition duration-200 ease-in-out">
+            <div>
               <label
                 htmlFor="username"
                 className="block mb-2 text-sm font-medium text-gray-300"
@@ -121,7 +64,7 @@ function Register() {
               />
             </div>
 
-            <div className="transition duration-200 ease-in-out">
+            <div>
               <label
                 htmlFor="password"
                 className="block mb-2 text-sm font-medium text-gray-300"
@@ -140,7 +83,7 @@ function Register() {
               />
             </div>
 
-            <div className="transition duration-200 ease-in-out">
+            <div>
               <label
                 htmlFor="repeat-password"
                 className="block mb-2 text-sm font-medium text-gray-300"
@@ -164,35 +107,12 @@ function Register() {
               )}
             </div>
 
-            {password && (
-              <div className="text-sm font-medium">
-                <div
-                  className={`h-2 w-full rounded-full ${getStrengthColorContainer()}`}
-                  style={{
-                    width: `${
-                      strength === "Weak"
-                        ? 20
-                        : strength === "Fair"
-                        ? 40
-                        : strength === "Good"
-                        ? 60
-                        : strength === "Strong"
-                        ? 80
-                        : strength === "Very Strong"
-                        ? 100
-                        : 0
-                    }%`,
-                  }}
-                ></div>
-                <p className={`mt-2 ${getStrengthColorText()}`}>
-                  {strength ? `Strength: ${strength}` : ""}
-                </p>
-              </div>
-            )}
+            {/* Password Check Container */}
+            {renderPasswordStrengthIndicator()}
 
             <button
               type="submit"
-              className="w-full rounded-lg px-5 py-2.5 text-center text-white font-bold focus:outline-none focus:ring-4 bg-indigo-700 hover:bg-indigo-800 focus:ring-indigo-800 transition-transform transform hover:scale-105 cursor-pointer"
+              className="w-full rounded-lg px-5 py-2.5 text-center text-white font-bold bg-indigo-700 hover:bg-indigo-800 transition-transform transform hover:scale-105 cursor-pointer"
               disabled={passwordMatchError}
             >
               Sign up
